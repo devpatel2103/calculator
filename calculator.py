@@ -1,3 +1,7 @@
+def welcome():
+    print('''
+        Welcome to the Calculator''')
+    
 def add(num1, num2):
     return num1 + num2
 
@@ -9,6 +13,16 @@ def multiply(num1, num2):
 
 def divide(num1, num2):
     return num1 / num2
+
+def again():
+    end = input('Do you have something else to calculate? (y/n)')
+    if(end.lower() == 'n'):
+        exit
+    elif(end.lower() == 'y'):
+        calculator()
+    else:
+        print('Invalid Input! Only put y or n')
+        again()
 
 def calculator():
 
@@ -41,5 +55,8 @@ def calculator():
     
     else:
         print("Your Input was Invalid, Try again!")
+    
+    again()
 
+welcome()
 calculator()
