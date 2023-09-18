@@ -2,17 +2,34 @@ def welcome():
     print('''
         Welcome to the Calculator''')
     
+def my_decorator(func):
+    def wrapper(*args ,**kwargs):
+        print(' ')
+        print('**************')
+        func(*args ,**kwargs)
+        print('**************')
+        print(' ')
+    return wrapper
+
+@my_decorator
 def add(num1, num2):
-    return num1 + num2
+    ans = f'{num1} + {num2} = {num1 + num2}'
+    print(ans)
 
+@my_decorator
 def subtract(num1, num2):
-    return num1 - num2
+    ans = f'{num1} - {num2} = {num1 - num2}'
+    print(ans)
 
+@my_decorator
 def multiply(num1, num2):
-    return num1 * num2
+    ans = f'{num1} * {num2} = {num1 * num2}'
+    print(ans)
 
+@my_decorator
 def divide(num1, num2):
-    return num1 / num2
+    ans = f'{num1} / {num2} = {num1 / num2}'
+    print(ans)
 
 def again():
     end = input('Do you have something else to calculate? (y/n)')
@@ -39,19 +56,25 @@ def calculator():
         print("You have selected Addition")
         num1 = int(input("First Number: "))
         num2 = int(input("Second Number: "))
-        print(f'{num1} + {num2} = {add(num1,num2)}')
+        add(num1,num2)
     
     elif(selection == '2'):
         print("You have selected Subtraction")
         num1 = int(input("First Number: "))
         num2 = int(input("Second Number: "))
-        print(f'{num1} - {num2} = {subtract(num1,num2)}')
+        subtract(num1,num2)
     
     elif(selection == '3'):
         print("You have selected Multiplication")
         num1 = int(input("First Number: "))
         num2 = int(input("Second Number: "))
-        print(f'{num1} * {num2} = {multiply(num1,num2)}')
+        multiply(num1,num2)
+
+    elif(selection == '4'):
+        print("You have selected Division")
+        num1 = int(input("First Number: "))
+        num2 = int(input("Second Number: "))
+        divide(num1,num2)
     
     else:
         print("Your Input was Invalid, Try again!")
