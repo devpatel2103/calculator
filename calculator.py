@@ -11,25 +11,53 @@ def my_decorator(func):
         print(' ')
     return wrapper
 
+def addtoFile(ans):
+    with open("history.txt","a") as file1:
+        file1.write(ans + '\n')
+
+@my_decorator
+def history(time):
+    try:
+
+        with open("history.txt", "r") as file:
+            
+                line = file.readlines()
+                count = len(line)
+                if(time > count):
+                    print(f'Your number was too big! \nPick a number between 1 - {count}')
+                    exit
+                else:
+                    print('Calculation History \n')
+
+                    for item in line[0:time]:
+                        print(item.strip())
+                        
+    except:
+        print("There was an error!")
+
 @my_decorator
 def add(num1, num2):
     ans = f'{num1} + {num2} = {num1 + num2}'
+    addtoFile(ans)
     print(ans)
 
 @my_decorator
 def subtract(num1, num2):
     ans = f'{num1} - {num2} = {num1 - num2}'
+    addtoFile(ans)
     print(ans)
 
 @my_decorator
 def multiply(num1, num2):
     ans = f'{num1} * {num2} = {num1 * num2}'
+    addtoFile(ans)
     print(ans)
 
 @my_decorator
 def divide(num1, num2):
     try:
         ans = f'{num1} / {num2} = {num1 / num2}'
+        addtoFile(ans)
         print(ans)
     except ZeroDivisionError:
         print('You cannot divide by zero! Try again')
@@ -53,6 +81,8 @@ def calculator():
             2. Subtraction 
             3. Multiplication 
             4. Division
+            
+            5. Calculation History
             ''')
         
         if(selection == '1'):
@@ -79,6 +109,10 @@ def calculator():
             num2 = int(input("Second Number: "))
             divide(num1,num2)
         
+        elif selection == '5':
+            time = int(input('How many operations do you want displayed? '))
+            history(time)
+
         else:
             print("Your Input was Invalid, Try again!")
         
