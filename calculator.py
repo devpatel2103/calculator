@@ -36,6 +36,11 @@ def history(time):
         print("There was an error!")
 
 @my_decorator
+def clear_history():
+    open('history.txt', "w").close
+    print("The history has been cleared!")
+
+@my_decorator
 def add(num1, num2):
     ans = f'{num1} + {num2} = {num1 + num2}'
     addtoFile(ans)
@@ -63,16 +68,17 @@ def divide(num1, num2):
         print('You cannot divide by zero! Try again')
 
 def again():
-    end = input('Do you have something else to calculate? (y/n)')
-    if(end.lower() == 'n'):
+    end = input('Do you have something else to calculate? (y/n) ')
+    if(end.lower() == 'n' or end == ""):
         exit
     elif(end.lower() == 'y'):
         calculator()
     else:
-        print('Invalid Input! Only put y or n')
+        print('Invalid Input!')
         again()
 
 def calculator():
+
     try:
         selection = input('''
             What Operation do you want?
@@ -83,6 +89,7 @@ def calculator():
             4. Division
             
             5. Calculation History
+            6. Clear History
             ''')
         
         if(selection == '1'):
@@ -110,8 +117,19 @@ def calculator():
             divide(num1,num2)
         
         elif selection == '5':
-            time = int(input('How many operations do you want displayed? '))
-            history(time)
+            with open("history.txt", "r") as file:
+                line = file.readlines()
+                count = len(line)
+                
+            if(count == 0):
+                print("The history is empty!")  
+                exit  
+            else:
+                time = int(input(f'How many operations do you want displayed? (Max = {count}) '))
+                history(time)
+        
+        elif selection == '6':
+            clear_history()
 
         else:
             print("Your Input was Invalid, Try again!")
